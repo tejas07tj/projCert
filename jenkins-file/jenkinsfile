@@ -8,14 +8,14 @@ pipeline {
                     // Job 1: Install Puppet Agent
                     sh '''
                     sudo yum update -y
-                    sudo rpm -Uvh https://yum.puppet.com/puppet8-release-el-8.noarch.rpm
-                    sudo yum install puppet-agent
-                    sudo systemctl enable puppet
-                    sudo systemctl start puppet
+                    //sudo rpm -Uvh https://yum.puppet.com/puppet8-release-el-8.noarch.rpm
+                   // sudo yum install puppet-agent
+                    //sudo systemctl enable puppet
+                    //sudo systemctl start puppet
                     '''
                 }
             }
-        }*/
+        }
 
         stage('Install Docker via Ansible') {
             steps {
