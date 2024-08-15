@@ -9,7 +9,7 @@ pipeline {
                     sh '''
                     sudo yum update -y
                     sudo rpm -Uvh https://yum.puppet.com/puppet5-release-fedora-26.noarch.rpm
-                    sudo yum install -y puppet-agent
+                    sudo yum install puppet-agent
                     sudo systemctl enable puppet
                     sudo systemctl start puppet
                     '''
