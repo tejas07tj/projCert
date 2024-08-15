@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Puppet Agent on Slave Node') {
+            steps {
+                script {
+                    // Job 1: Install Puppet Agent
+                    sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y puppet
+                    sudo systemctl enable puppet
+                    sudo systemctl start puppet
+                    '''
+                }
+            }
+        }
+
+        stage('Install Docker via Ansible') {
+            steps {
+                script {
+                    // Job 2: Push Ansible configuration to install Docker on Slave Node
+                    writeFile file: 'install_docker.yml', text: '''
+                    ---
+                    - hosts: localhost
+                      become: yes
+                      tasks:
+                        - name: Install Docker
+                          apt:
+                            name: docker.io
+                            state: present
+                            update_cache: yes
+                    '''
+                    // Run the Ansible playbook
+                    sh '''
+                    ansible-playbook install_docker.yml
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy PHP Website using Docker') {
+            steps {
+                script {
+                    // Job 3: Pull PHP website and Dockerfile, build Docker image, and deploy the container
+                    git url: 'https://your-git-repo.git', branch: 'master'
+                    
+                    // Build Docker image
+                    sh 'docker build -t php-webapp .'
+                    
+                    // Deploy Docker container
+                    sh '''
+                    docker stop php-webapp || true
+                    docker rm php-webapp || true
+                    docker run -d --name php-webapp -p 80:80 php-webapp
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            // Cleanup if Job 3 fails: Delete the running Docker container
+            sh 'docker rm -f php-webapp || true'
+        }
+    }
+}
