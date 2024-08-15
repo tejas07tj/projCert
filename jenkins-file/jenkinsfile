@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Puppet Agent on Slave Node') {
+        /*stage('Install Puppet Agent on Slave Node') {
             steps {
                 script {
                     // Job 1: Install Puppet Agent
@@ -15,7 +15,7 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
 
         stage('Install Docker via Ansible') {
             steps {
