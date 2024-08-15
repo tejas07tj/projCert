@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     // Job 3: Pull PHP website and Dockerfile, build Docker image, and deploy the container
-                    git url: 'https://your-git-repo.git', branch: 'master'
+                    git url: 'https://github.com/tejas07tj/projCert.git', branch: 'master'
                     
                     // Build Docker image
                     sh 'docker build -t php-webapp .'
