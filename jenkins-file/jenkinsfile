@@ -10,7 +10,7 @@ pipeline {
                     sudo yum update -y
                     wget https://yum.puppet.com/puppet7/puppet7-release-el-8.noarch.rpm
                     sudo rpm -ivh puppet7-release-el-8.noarch.rpm
-                    sudo yum install puppet-agent
+                    sudo yum install puppet-agent-7.8.0
                     sudo systemctl enable puppet
                     sudo systemctl start puppet
                     '''
