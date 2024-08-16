@@ -24,13 +24,13 @@ pipeline {
                     writeFile file: 'install_docker.yml', text: '''
                     ---
                      - hosts: slaveserver
-                       become: yes
-                       tasks:
-                         - name: Install Docker
-                           apt:
-                             name: docker.io
-                             state: present
-                             update_cache: yes
+                        become: yes
+                        tasks:
+                          - name: Install Docker
+                            apt:
+                              name: docker.io
+                              state: present
+                              update_cache: yes
                     '''
                     // Run the Ansible playbook
                     sh '''
