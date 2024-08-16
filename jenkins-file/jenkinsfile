@@ -33,9 +33,9 @@ pipeline {
          update_cache: yes
                     '''
                     // Run the Ansible playbook
-                    sh '''
+                    /*sh '''
                     ansible-playbook install_docker.yml
-                    '''
+                    '''*/
                 }
             }
         }
