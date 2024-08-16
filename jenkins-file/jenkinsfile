@@ -22,15 +22,15 @@ pipeline {
                 script {
                     // Job 2: Push Ansible configuration to install Docker on Slave Node
                     writeFile file: 'install_docker.yml', text: '''
-                    ---
-                     - hosts: slaveserver
-                        become: yes
-                        tasks:
-                          - name: Install Docker
-                            apt:
-                              name: docker.io
-                              state: present
-                              update_cache: yes
+---
+ - hosts: slaveserver
+   become: true
+   tasks:
+     - name: Install Docker
+       apt:
+       name: docker.io
+       state: present
+       update_cache: yes
                     '''
                     // Run the Ansible playbook
                     sh '''
