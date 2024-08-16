@@ -8,11 +8,12 @@ pipeline {
                     // Job 1: Install Puppet Agent
                     sh '''
                     sudo yum update -y
+                    sudo rpm -Uvh https://yum.puppet.com/puppet8-release-el-8.noarch.rpm
+                    sudo yum install puppet-agent
+                    sudo systemctl enable puppet
+                    sudo systemctl start puppet
                     '''
-                    //sudo rpm -Uvh https://yum.puppet.com/puppet8-release-el-8.noarch.rpm
-                    //sudo yum install puppet-agent
-                    //sudo systemctl enable puppet
-                    //sudo systemctl start puppet
+                    
                 }
             }
         }
@@ -33,9 +34,9 @@ pipeline {
          update_cache: yes
                     '''
                     // Run the Ansible playbook
-                    /*sh '''
+                    sh '''
                     ansible-playbook install_docker.yml
-                    '''*/
+                    '''
                 }
             }
         }
@@ -47,7 +48,7 @@ pipeline {
                     git url: 'https://github.com/tejas07tj/projCert.git', branch: 'master'
                     
                     // Build Docker image
-                    //sh 'service docker start'
+                    sh 'service docker start'
                     sh 'service docker status'
                     sh 'docker build -t php-webapp .'
                     
