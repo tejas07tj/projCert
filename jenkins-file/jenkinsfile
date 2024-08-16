@@ -28,7 +28,7 @@ pipeline {
    tasks:
      - name: Install Docker
        yum:
-         name: docker.io
+         name: docker
          state: present
          update_cache: yes
                     '''
